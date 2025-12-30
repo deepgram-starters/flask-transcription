@@ -7,12 +7,11 @@ Please take the time to review the [Code of Conduct](CODE_OF_CONDUCT.md), which 
 ## Prerequisites
 
 **Backend (Python):**
-- Python 3.8+
-- pip
+- Python 3.9+
 
 **Frontend:**
 - Node.js 24.0.0
-- pnpm 10.0.0 (recommended)
+- pnpm 10.0.0 (required)
 
 **Installation:**
 ```bash
@@ -26,22 +25,7 @@ pnpm run build
 cd ..
 ```
 
-**Note:** The frontend uses pnpm for consistency with other Deepgram starters. The built frontend is served as static files by Flask from `frontend/dist/`.
-
-## Development Environment Setup
-
-### Python Virtual Environment (Recommended)
-
-```bash
-# Create virtual environment
-python -m venv env
-
-# Activate environment
-source env/bin/activate  # On Windows: env\Scripts\activate
-
-# Install dependencies
-pip install -r requirements.txt
-```
+**Note:** All Python dependencies are pinned to exact versions in `requirements.txt`. We recommend using a virtual environment (venv, virtualenv, conda, etc.) but leave the choice to you.
 
 ### Frontend Development
 
@@ -92,7 +76,7 @@ Please follow these steps:
 3. Test both backend and frontend changes:
    ```bash
    # Test backend
-   flask run -p 8080
+   flask run -p 3000
 
    # Rebuild frontend if modified
    cd frontend && pnpm run build && cd ..

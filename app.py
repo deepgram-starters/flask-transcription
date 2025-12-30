@@ -15,7 +15,7 @@ Key Features:
 import os
 from flask import Flask, request, jsonify, send_from_directory
 from flask_cors import CORS
-from deepgram import DeepgramClient, PrerecordedOptions, FileSource
+from deepgram import DeepgramClient
 from dotenv import load_dotenv
 
 load_dotenv()
@@ -59,7 +59,7 @@ api_key = load_api_key()
 # ============================================================================
 
 # Initialize Deepgram client
-deepgram = DeepgramClient(api_key)
+deepgram = DeepgramClient()
 
 # Initialize Flask app - serve built frontend from frontend/dist/
 app = Flask(__name__, static_folder="./frontend/dist", static_url_path="/")
@@ -105,28 +105,23 @@ def transcribe_audio(input_data, model=DEFAULT_MODEL):
     Returns:
         dict: Deepgram API response
     """
-    options = PrerecordedOptions(
-        model=model,
-        smart_format=True,
-    )
-
     # URL transcription
     if input_data["type"] == "url":
-        url_source = {"url": input_data["data"]}
-        response = deepgram.listen.rest.v("1").transcribe_url(url_source, options)
+        response = deepgram.listen.v1.media.transcribe_url(
+            url=input_data["data"],
+            model=model,
+            smart_format=True,
+        )
         return response
 
     # File transcription
     file_obj = input_data["data"]
     file_content = file_obj.read()
 
-    payload = FileSource(
-        buffer=file_content
-    )
-
-    response = deepgram.listen.rest.v("1").transcribe_file(
-        payload,
-        options
+    response = deepgram.listen.v1.media.transcribe_file(
+        request=file_content,
+        model=model,
+        smart_format=True,
     )
     return response
 
@@ -292,7 +287,7 @@ def transcribe():
 # ============================================================================
 
 if __name__ == "__main__":
-    port = int(os.environ.get("PORT", 8080))
+    port = int(os.environ.get("PORT", 3000))
     host = os.environ.get("HOST", "0.0.0.0")
 
     print("\n" + "=" * 70)

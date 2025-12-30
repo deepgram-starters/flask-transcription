@@ -5,10 +5,8 @@ Speech-to-Text demo using Deepgram's API with Python Flask backend and web front
 ## Prerequisites
 
 - [Deepgram API Key](https://console.deepgram.com/signup?jump=keys) (sign up for free)
-- Python 3.8+ and pip
+- Python 3.9+
 - Node.js 14+ and pnpm (for frontend build)
-
-
 
 ## Quick Start
 
@@ -42,16 +40,18 @@ DEEPGRAM_API_KEY=your_api_key_here
 **Production mode**:
 
 ```bash
-flask run -p 8080
+flask run -p 3000
 ```
+
+Open [http://localhost:3000](http://localhost:3000)
 
 **Development mode with frontend HMR** (optional, for frontend development):
 
 ```bash
 # Terminal 1: Backend
-flask run -p 8080
+flask run -p 3000
 
-# Terminal 2: Frontend dev server (optional)
+# Terminal 2: Frontend dev server with instant reload
 cd frontend && pnpm run dev
 ```
 
@@ -72,31 +72,6 @@ Open [http://localhost:3000](http://localhost:3000)
 
 The frontend is built with Vite and served as static files from `frontend/dist/`. This ensures a consistent UI across all Deepgram starter apps regardless of backend language.
 
-## Development
-
-### Setting up a Python virtual environment
-
-```bash
-# Create virtual environment
-python -m venv env
-
-# Activate environment
-source env/bin/activate  # On Windows: env\Scripts\activate
-
-# Install dependencies
-pip install -r requirements.txt
-```
-
-### Frontend development
-
-For active frontend development with hot module reload:
-
-```bash
-cd frontend
-pnpm run dev
-```
-
-This starts Vite dev server on port 8081 with instant updates when you modify frontend files.
 
 ## Security
 

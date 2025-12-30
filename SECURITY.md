@@ -10,20 +10,18 @@ This project implements security best practices to protect against vulnerabiliti
 
 ### Python Dependency Management
 
-**Backend Security:**
+**Dependency Pinning:**
 - All Python dependencies are pinned to exact versions in `requirements.txt`
 - No version ranges allowed (e.g., `>=`, `~=`)
 - Dependencies should be updated intentionally and tested thoroughly
 
-**Best Practices:**
+**Installation:**
 ```bash
 # Install from pinned versions
 pip install -r requirements.txt
-
-# Use virtual environments to isolate dependencies
-python -m venv env
-source env/bin/activate
 ```
+
+**Note:** We recommend using a virtual environment (venv, virtualenv, conda, pipenv, poetry, etc.) to isolate dependencies, but we leave the choice of environment management tool to you.
 
 ### Frontend Security
 
@@ -55,8 +53,6 @@ pnpm run build
 
 ### Security Scanning
 
-For security vulnerability scanning, consider:
-
 **Python Dependencies:**
 ```bash
 # Using Snyk (if installed)
@@ -65,6 +61,10 @@ snyk test --file=requirements.txt
 # Or use pip-audit
 pip install pip-audit
 pip-audit
+
+# Or safety
+pip install safety
+safety check
 ```
 
 **Frontend Dependencies:**
@@ -81,29 +81,8 @@ When updating dependencies:
 1. Update one dependency at a time when possible
 2. Test the application thoroughly after each update
 3. Review dependency changelogs for breaking changes
-4. Pin the new version exactly in `requirements.txt`
-5. Commit the updated `requirements.txt`
-
-### Virtual Environment Best Practices
-
-Always use virtual environments to:
-- Isolate project dependencies
-- Prevent system-wide package conflicts
-- Ensure reproducible builds
-
-```bash
-# Create virtual environment
-python -m venv env
-
-# Activate
-source env/bin/activate  # On Windows: env\Scripts\activate
-
-# Install dependencies
-pip install -r requirements.txt
-
-# Deactivate when done
-deactivate
-```
+4. Pin the new exact version in `requirements.txt`
+5. Run security scans before committing
 
 ### Production Deployment
 
