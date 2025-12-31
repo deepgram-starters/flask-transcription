@@ -176,35 +176,22 @@ def format_transcription_response(transcription_response, model_name):
 def format_error_response(error, status_code=500):
     """
     Formats error responses in a consistent structure per the contract
-
-    Args:
-        error: The error that occurred
-        status_code: HTTP status code to return
-
-    Returns:
-        tuple: (response_dict, status_code)
     """
-    error_type = "ValidationError" if status_code == 400 else "TranscriptionError"
-
-    # Determine error code based on error message
-    error_message = str(error)
-    if "url" in error_message.lower() or "invalid" in error_message.lower():
-        error_code = "INVALID_URL"
-    elif "audio" in error_message.lower():
-        error_code = "BAD_AUDIO"
-    elif "missing" in error_message.lower():
-        error_code = "MISSING_INPUT"
+    # Map status codes to error responses
+    if status_code == 400:
+        error_type = "ValidationError"
+        error_code = "INVALID_INPUT"
+        safe_message = "The request is invalid. Please check your input and try again."
     else:
+        error_type = "TranscriptionError"
         error_code = "TRANSCRIPTION_FAILED"
+        safe_message = "Transcription failed. Please try again."
 
     return {
         "error": {
             "type": error_type,
             "code": error_code,
-            "message": error_message,
-            "details": {
-                "originalError": str(error)
-            }
+            "message": safe_message,
         }
     }, status_code
 
@@ -290,10 +277,12 @@ def transcribe():
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 3000))
     host = os.environ.get("HOST", "0.0.0.0")
+    debug = os.environ.get("FLASK_DEBUG", "0") == "1"
 
     print("\n" + "=" * 70)
     print(f"🚀 Flask Transcription Server running at http://localhost:{port}")
     print(f"📦 Serving built frontend from frontend/dist")
+    print(f"🐞 Debug mode: {'ON' if debug else 'OFF'}")
     print("=" * 70 + "\n")
 
-    app.run(host=host, port=port, debug=True)
+    app.run(host=host, port=port, debug=debug)
