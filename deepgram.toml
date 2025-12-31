@@ -1,6 +1,6 @@
 [meta]
 title = "Flask Transcription Starter"
-description = "Get started using Deepgram's Pre-Recorded Transcription with this Flask demo apps"
+description = "Get started using Deepgram's Pre-Recorded Transcription with this Flask demo app"
 author = "Deepgram DX Team <devrel@deepgram.com> (https://developers.deepgram.com)"
 useCase = "STT"
 language = "Python"
