@@ -21,11 +21,6 @@ from dotenv import load_dotenv
 # Load .env without overriding existing env vars
 load_dotenv(override=False)
 
-# DEBUG - remove after testing
-import os
-key = os.environ.get("DEEPGRAM_API_KEY", "NOT SET")
-print(f"DEBUG: API key = {key[:15]}..." if len(key) > 15 else f"DEBUG: API key = {key}")
-
 # ============================================================================
 # CONFIGURATION - Customize these values for your needs
 # ============================================================================
