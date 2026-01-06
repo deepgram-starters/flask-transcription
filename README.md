@@ -40,7 +40,7 @@ DEEPGRAM_API_KEY=your_api_key_here
 **Production mode**:
 
 ```bash
-flask run -p 3000
+python app.py
 ```
 
 Open [http://localhost:3000](http://localhost:3000)
@@ -49,13 +49,13 @@ Open [http://localhost:3000](http://localhost:3000)
 
 ```bash
 # Terminal 1: Backend
-flask run -p 3000
+python app.py
 
 # Terminal 2: Frontend dev server with instant reload
 cd frontend && pnpm run dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000)
+Open [http://localhost:5173](http://localhost:5173)
 
 ## Features
 
