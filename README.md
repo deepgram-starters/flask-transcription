@@ -75,11 +75,6 @@ The frontend is built with Vite and served as static files from `frontend/dist/`
 
 ## Security
 
-This project follows Deepgram's security best practices:
-- Pinned dependency versions
-- Environment variable configuration for API keys
-- Never commit `.env` files to version control
-
 See [SECURITY.md](SECURITY.md) for security reporting procedures.
 
 ## Contributing
