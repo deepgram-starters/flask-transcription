@@ -263,6 +263,40 @@ def transcribe():
         error_response, status = format_error_response(e, 500)
         return jsonify(error_response), status
 
+@app.route("/api/metadata", methods=["GET"])
+def get_metadata():
+    """
+    GET /api/metadata
+
+    Returns metadata about this starter application from deepgram.toml
+    Required for standardization compliance
+    """
+    try:
+        import toml
+        with open('deepgram.toml', 'r') as f:
+            config = toml.load(f)
+
+        if 'meta' not in config:
+            return jsonify({
+                'error': 'INTERNAL_SERVER_ERROR',
+                'message': 'Missing [meta] section in deepgram.toml'
+            }), 500
+
+        return jsonify(config['meta']), 200
+
+    except FileNotFoundError:
+        return jsonify({
+            'error': 'INTERNAL_SERVER_ERROR',
+            'message': 'deepgram.toml file not found'
+        }), 500
+
+    except Exception as e:
+        print(f"Error reading metadata: {e}")
+        return jsonify({
+            'error': 'INTERNAL_SERVER_ERROR',
+            'message': f'Failed to read metadata from deepgram.toml: {str(e)}'
+        }), 500
+
 # ============================================================================
 # FRONTEND STATIC FILES - Serve the built frontend
 # ============================================================================
