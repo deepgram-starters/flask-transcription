@@ -59,8 +59,8 @@ api_key = load_api_key()
 # SETUP - Initialize Flask, Deepgram, and middleware
 # ============================================================================
 
-# Initialize Deepgram client
-deepgram = DeepgramClient()
+# Initialize Deepgram client with API key
+deepgram = DeepgramClient(api_key=api_key)
 
 # Initialize Flask app - serve built frontend from frontend/dist/
 app = Flask(__name__, static_folder="./frontend/dist", static_url_path="/")
