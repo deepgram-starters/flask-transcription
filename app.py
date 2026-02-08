@@ -6,7 +6,7 @@ powered by Deepgram's Speech-to-Text service. It's designed to be easily
 modified and extended for your own projects.
 
 Key Features:
-- Single API endpoint: POST /stt/transcribe
+- Single API endpoint: POST /api/transcription
 - Accepts both file uploads and URLs
 - Serves built frontend from frontend/dist/
 - CORS enabled for development
@@ -34,7 +34,6 @@ DEFAULT_MODEL = "nova-3"
 CONFIG = {
     "port": int(os.environ.get("PORT", 8081)),
     "host": os.environ.get("HOST", "0.0.0.0"),
-    "frontend_port": int(os.environ.get("FRONTEND_PORT", 8080)),
 }
 
 # ============================================================================
@@ -73,11 +72,7 @@ deepgram = DeepgramClient(api_key=api_key)
 app = Flask(__name__)
 
 # Enable CORS for frontend communication
-# Frontend runs on port 8080, backend on port 8081
-CORS(app, origins=[
-    f"http://localhost:{CONFIG['frontend_port']}",
-    f"http://127.0.0.1:{CONFIG['frontend_port']}"
-], supports_credentials=True)
+CORS(app)
 
 # ============================================================================
 # HELPER FUNCTIONS - Modular logic for easier understanding and testing
@@ -209,10 +204,10 @@ def format_error_response(error, status_code=500):
 # API ROUTES - Define your API endpoints here
 # ============================================================================
 
-@app.route("/stt/transcribe", methods=["POST"])
+@app.route("/api/transcription", methods=["POST"])
 def transcribe():
     """
-    POST /stt/transcribe
+    POST /api/transcription
 
     Main transcription endpoint. Accepts either:
     - A file upload (multipart/form-data with 'file' field)
@@ -309,15 +304,15 @@ def get_metadata():
 if __name__ == "__main__":
     port = CONFIG["port"]
     host = CONFIG["host"]
-    frontend_port = CONFIG["frontend_port"]
     debug = os.environ.get("FLASK_DEBUG", "0") == "1"
 
     print("\n" + "=" * 70)
     print(f"🚀 Flask Transcription Server (Backend API)")
     print("=" * 70)
-    print(f"Backend:  http://localhost:{port}")
-    print(f"Frontend: http://localhost:{frontend_port}")
-    print(f"CORS:     Enabled for frontend port {frontend_port}")
+    print(f"🚀 Backend API Server running at http://localhost:{port}")
+    print(f"")
+    print(f"📡 POST /api/transcription")
+    print(f"📡 GET  /api/metadata")
     print(f"Debug:    {'ON' if debug else 'OFF'}")
     print("=" * 70 + "\n")
 
