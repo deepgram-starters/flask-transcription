@@ -4,4 +4,4 @@ flask-cors==5.0.0
 PyJWT==2.10.1
 python-dotenv==1.0.1
 toml==0.10.2
-werkzeug==3.1.4
+werkzeug==3.1.5
