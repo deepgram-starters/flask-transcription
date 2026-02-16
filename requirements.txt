@@ -1,4 +1,4 @@
-deepgram-sdk==5.3.2
+deepgram-sdk==6.0.0rc1
 flask==3.1.0
 flask-cors==5.0.0
 PyJWT==2.10.1

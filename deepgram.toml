@@ -6,7 +6,7 @@ repository = "https://github.com/deepgram-starters/flask-transcription"
 useCase = "transcription"
 language = "python"
 framework = "flask"
-sdk = "5.3.2"
+sdk = "6.0.0-rc.1"
 tags = ["transcription", "stt", "speech-to-text", "asr", "pre-recorded", "python", "flask"]
 
 # Check prerequisites
